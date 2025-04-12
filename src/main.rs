@@ -1,3 +1,3 @@
 fn main() {
-    println!("Hello, world!");
+    test_suite_1::run();
 }
