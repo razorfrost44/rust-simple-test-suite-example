@@ -43,6 +43,14 @@ impl GroceryStoreImpl {
     }
 }
 
+// Here as a reference for how Rust handles 'destructors'
+// Drop will be called when the object goes out of scope
+// impl Drop for GroceryStoreImpl {
+//     fn drop(&mut self) {
+//         println!("Dropping GroceryStoreImpl");
+//     }
+// }
+
 impl GroceryStore for GroceryStoreImpl {
     fn get_current_fruit(&self) -> Fruit {
         self.current_fruit.lock().unwrap().clone()
