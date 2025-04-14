@@ -3,6 +3,7 @@ use super::*;
 #[test]
 fn test_current_fruit() {
     // Arrange
+    set_current_fruit(Fruit::Apple);
     // Act
     let result = get_current_fruit();
     // Assert
@@ -22,6 +23,7 @@ fn test_set_current_fruit() {
 #[test]
 fn test_current_vegetable() {
     // Arrange
+    set_current_vegetable(Vegetable::Carrot);
     // Act
     let result = get_current_vegetable();
     // Assert
