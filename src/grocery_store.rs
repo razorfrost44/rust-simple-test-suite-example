@@ -1,17 +1,20 @@
+// Imports - Tests
+#[cfg(test)]
+mod tests;
 // Imports - Rust
 use std::sync::Mutex;
 // Imports - creates
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Clone, Copy, Serialize, Deserialize)]
 pub enum Fruit {
     Apple,
     Banana,
     Orange,
 }
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Clone, Copy, Serialize, Deserialize)]
 pub enum Vegetable {
     Carrot,
     Broccoli,

@@ -1,8 +1,11 @@
+// Imports - Tests
+#[cfg(test)]
+mod tests;
 // Imports - modules
 use crate::grocery_store;
 use grocery_store::{
-    get_current_fruit, get_current_vegetable, set_current_fruit, set_current_vegetable, Fruit,
-    Vegetable,
+    Fruit, Vegetable, get_current_fruit, get_current_vegetable, set_current_fruit,
+    set_current_vegetable,
 };
 // Imports - creates
 use serde_json::to_string;
