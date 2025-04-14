@@ -1,10 +1,10 @@
 // Imports - Tests
 #[cfg(test)]
 mod tests;
+use mockall::automock;
 // Imports - Rust
 use std::sync::Mutex;
 // Imports - creates
-use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Clone, Copy, Serialize, Deserialize)]
@@ -21,25 +21,44 @@ pub enum Vegetable {
     Spinach,
 }
 
-lazy_static! {
-    static ref CURRENT_FRUIT: Mutex<Fruit> = Mutex::new(Fruit::Apple);
-    static ref CURRENT_VEGETABLE: Mutex<Vegetable> = Mutex::new(Vegetable::Carrot);
+#[automock]
+pub trait GroceryStore {
+    fn get_current_fruit(&self) -> Fruit;
+    fn set_current_fruit(&self, fruit: Fruit);
+    fn get_current_vegetable(&self) -> Vegetable;
+    fn set_current_vegetable(&self, vegetable: Vegetable);
 }
 
-pub fn get_current_fruit() -> Fruit {
-    CURRENT_FRUIT.lock().unwrap().clone()
+pub struct GroceryStoreImpl {
+    current_fruit: Mutex<Fruit>,
+    current_vegetable: Mutex<Vegetable>,
 }
 
-pub fn set_current_fruit(fruit: Fruit) {
-    let mut fruit_global = CURRENT_FRUIT.lock().unwrap();
-    *fruit_global = fruit.clone();
+impl GroceryStoreImpl {
+    pub fn new() -> Self {
+        GroceryStoreImpl {
+            current_fruit: Mutex::new(Fruit::Apple),
+            current_vegetable: Mutex::new(Vegetable::Carrot),
+        }
+    }
 }
 
-pub fn get_current_vegetable() -> Vegetable {
-    CURRENT_VEGETABLE.lock().unwrap().clone()
-}
+impl GroceryStore for GroceryStoreImpl {
+    fn get_current_fruit(&self) -> Fruit {
+        self.current_fruit.lock().unwrap().clone()
+    }
 
-pub fn set_current_vegetable(vegetable: Vegetable) {
-    let mut vegetable_global = CURRENT_VEGETABLE.lock().unwrap();
-    *vegetable_global = vegetable.clone();
+    fn set_current_fruit(&self, fruit: Fruit) {
+        let mut fruit_global = self.current_fruit.lock().unwrap();
+        *fruit_global = fruit.clone();
+    }
+
+    fn get_current_vegetable(&self) -> Vegetable {
+        self.current_vegetable.lock().unwrap().clone()
+    }
+
+    fn set_current_vegetable(&self, vegetable: Vegetable) {
+        let mut vegetable_global = self.current_vegetable.lock().unwrap();
+        *vegetable_global = vegetable.clone();
+    }
 }

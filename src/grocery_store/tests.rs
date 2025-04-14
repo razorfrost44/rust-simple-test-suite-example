@@ -1,11 +1,28 @@
 use super::*;
 
+struct TestContext {
+    grocery_store: GroceryStoreImpl,
+}
+
+// Implementing any special needs for when TestContext is destroyed
+impl Drop for TestContext {
+    fn drop(&mut self) {
+        // Clean up any resources if needed
+    }
+}
+
+fn setup() -> TestContext {
+    TestContext {
+        grocery_store: GroceryStoreImpl::new(),
+    }
+}
+
 #[test]
 fn test_current_fruit() {
     // Arrange
-    set_current_fruit(Fruit::Apple);
+    let context = setup();
     // Act
-    let result = get_current_fruit();
+    let result = context.grocery_store.get_current_fruit();
     // Assert
     assert_eq!(result, Fruit::Apple);
 }
@@ -13,9 +30,10 @@ fn test_current_fruit() {
 #[test]
 fn test_set_current_fruit() {
     // Arrange
-    set_current_fruit(Fruit::Banana);
+    let context = setup();
+    context.grocery_store.set_current_fruit(Fruit::Banana);
     // Act
-    let result = get_current_fruit();
+    let result = context.grocery_store.get_current_fruit();
     // Assert
     assert_eq!(result, Fruit::Banana);
 }
@@ -23,9 +41,12 @@ fn test_set_current_fruit() {
 #[test]
 fn test_current_vegetable() {
     // Arrange
-    set_current_vegetable(Vegetable::Carrot);
+    let context = setup();
+    context
+        .grocery_store
+        .set_current_vegetable(Vegetable::Carrot);
     // Act
-    let result = get_current_vegetable();
+    let result = context.grocery_store.get_current_vegetable();
     // Assert
     assert_eq!(result, Vegetable::Carrot);
 }
@@ -33,9 +54,12 @@ fn test_current_vegetable() {
 #[test]
 fn test_set_current_vegetable() {
     // Arrange
-    set_current_vegetable(Vegetable::Spinach);
+    let context = setup();
+    context
+        .grocery_store
+        .set_current_vegetable(Vegetable::Spinach);
     // Act
-    let result = get_current_vegetable();
+    let result = context.grocery_store.get_current_vegetable();
     // Assert
     assert_eq!(result, Vegetable::Spinach);
 }

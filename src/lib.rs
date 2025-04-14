@@ -27,22 +27,26 @@ pub fn run() {
     println!("Multiplication: {}", mul);
 
     println!("\nGrocery Store:\n");
-    println!("Current Fruit: {:?}", get_current_fruit());
-    println!("Current Vegetable: {:?}", get_current_vegetable());
-    set_current_fruit(Fruit::Orange);
-    set_current_vegetable(Vegetable::Spinach);
-    println!("Current Fruit: {:?}", get_current_fruit());
-    println!("Current Vegetable: {:?}", get_current_vegetable());
+    let store = grocery_store::GroceryStoreImpl::new();
+    println!("Current Fruit: {:?}", store.get_current_fruit());
+    println!("Current Vegetable: {:?}", store.get_current_vegetable());
+    store.set_current_fruit(Fruit::Orange);
+    store.set_current_vegetable(Vegetable::Spinach);
+    println!("Current Fruit: {:?}", store.get_current_fruit());
+    println!("Current Vegetable: {:?}", store.get_current_vegetable());
+
+    store.set_current_fruit(Fruit::Apple);
+    store.set_current_vegetable(Vegetable::Carrot);
 
     println!("\nShopper\n");
-    println!("Grab Fruit: {}", grab_fruit());
-    println!("Grab Vegetable: {}", grab_vegetable());
-    println!("Grab Both: {}", grab_fruit_and_vegetable());
-    change_fruit(Fruit::Banana);
-    change_vegetable(Vegetable::Broccoli);
-    println!("Grab Fruit: {}", grab_fruit());
-    println!("Grab Vegetable: {}", grab_vegetable());
-    println!("Grab Both: {}", grab_fruit_and_vegetable());
+    println!("Grab Fruit: {}", grab_fruit(&store));
+    println!("Grab Vegetable: {}", grab_vegetable(&store));
+    println!("Grab Both: {}", grab_fruit_and_vegetable(&store));
+    change_fruit(&store, Fruit::Banana);
+    change_vegetable(&store, Vegetable::Broccoli);
+    println!("Grab Fruit: {}", grab_fruit(&store));
+    println!("Grab Vegetable: {}", grab_vegetable(&store));
+    println!("Grab Both: {}", grab_fruit_and_vegetable(&store));
 
     println!("\nEND");
 }
