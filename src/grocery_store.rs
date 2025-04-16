@@ -2,7 +2,7 @@
 use mockall::automock;
 // Imports - Rust
 use std::sync::Mutex;
-// Imports - creates
+// Imports - crates
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Clone, Copy, Serialize, Deserialize)]
